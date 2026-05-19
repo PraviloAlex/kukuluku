@@ -146,10 +146,11 @@
     width: clamp(18px, 2.1vw, 28px);
     height: clamp(18px, 2.1vw, 28px);
     border-radius: 999px;
-    background: var(--black);
+    background: var(--orange);
     box-shadow:
-      0 0 0 7px rgba(17,17,17,0.10),
-      inset 0 0 0 2px rgba(242,239,232,0.12);
+      0 0 0 7px rgba(242,91,35,0.12),
+      0 0 26px rgba(242,91,35,0.22),
+      inset 0 0 0 1px rgba(242,239,232,0.16);
     flex: 0 0 auto;
   }
 
@@ -222,13 +223,13 @@
     position: absolute;
     right: 24px;
     top: 22px;
-    width: 220px;
+    width: 240px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
-    line-height: 1.65;
-    letter-spacing: 0.07em;
+    line-height: 1.72;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(17,17,17,0.72);
+    color: rgba(17,17,17,0.74);
   }
 
   .hero-left-shape {
@@ -243,6 +244,7 @@
 
   .hero-right {
     position: relative;
+    isolation: isolate;
     background:
       linear-gradient(90deg, rgba(242,239,232,0.045) 1px, transparent 1px),
       linear-gradient(rgba(242,239,232,0.045) 1px, transparent 1px),
@@ -250,6 +252,25 @@
     background-size: 44px 44px;
     overflow: hidden;
     padding: 30px 30px 38px;
+  }
+
+  .hero-right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 26%, rgba(242,239,232,0.08) 0 1px, transparent 1.6px),
+      radial-gradient(circle at 62% 74%, rgba(242,239,232,0.06) 0 1px, transparent 1.8px),
+      radial-gradient(circle at 82% 18%, rgba(242,239,232,0.05) 0 1px, transparent 1.6px),
+      linear-gradient(103deg, transparent 0 28%, rgba(68,38,27,0.30) 28% 36%, transparent 36% 100%),
+      linear-gradient(94deg, transparent 0 44%, rgba(59,33,24,0.24) 44% 54%, transparent 54% 100%),
+      linear-gradient(0deg, transparent 0 56%, rgba(40,20,14,0.22) 56% 62%, transparent 62% 100%),
+      linear-gradient(0deg, transparent 0 78%, rgba(52,28,20,0.16) 78% 83%, transparent 83% 100%);
+    background-size: 19px 19px, 23px 23px, 29px 29px, auto, auto, auto, auto;
+    opacity: 0.9;
+    pointer-events: none;
+    mix-blend-mode: normal;
+    z-index: 0;
   }
 
   .hero-number {
@@ -304,16 +325,20 @@
     position: relative;
     z-index: 3;
     margin-top: 48px;
-    max-width: 720px;
+    max-width: 760px;
     display: grid;
     grid-template-columns: 82px 1fr;
-    background: var(--brown);
+    background: linear-gradient(90deg, rgba(242,91,35,0.03) 1px, transparent 1px), linear-gradient(rgba(242,91,35,0.03) 1px, transparent 1px), var(--brown);
+    background-size: 22px 22px;
     border: 1px solid rgba(242,91,35,0.42);
-    box-shadow: 0 20px 0 rgba(242,91,35,0.16);
+    box-shadow: 0 22px 0 rgba(242,91,35,0.14);
   }
 
   .statement-mark {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-right: 1px solid rgba(242,91,35,0.35);
     background:
       linear-gradient(90deg, rgba(242,91,35,0.12) 1px, transparent 1px),
@@ -323,14 +348,11 @@
 
   .statement-mark::before {
     content: "";
-    position: absolute;
-    left: 24px;
-    top: 24px;
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     border-radius: 999px;
-    background: var(--orange);
-    box-shadow: 0 0 0 10px rgba(242,91,35,0.12);
+    background: var(--paper);
+    box-shadow: 0 0 0 12px rgba(242,91,35,0.16), 0 0 28px rgba(242,91,35,0.26);
   }
 
   .statement-body {
@@ -338,27 +360,30 @@
   }
 
   .statement-label {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
     line-height: 1.4;
-    letter-spacing: 0.10em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--orange);
   }
 
   .statement-headline {
     margin-bottom: 12px;
-    font-size: clamp(20px, 2vw, 28px);
-    line-height: 1.05;
+    font-size: clamp(24px, 2.5vw, 34px);
+    line-height: 0.98;
     font-weight: 500;
-    letter-spacing: -0.055em;
+    letter-spacing: -0.085em;
+    text-transform: uppercase;
     color: var(--paper);
   }
 
   .statement-copy {
-    max-width: 580px;
-    color: rgba(242,239,232,0.68);
+    max-width: 600px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgba(242,239,232,0.74);
   }
 
   .quick-strip {
@@ -407,6 +432,7 @@
     border-right: 2px solid var(--black);
     border-bottom: 2px solid var(--black);
     overflow: hidden;
+    isolation: isolate;
     color: var(--black);
     background:
       linear-gradient(90deg, rgba(17,17,17,0.08) 1px, transparent 1px),
@@ -454,16 +480,47 @@
     color: var(--paper);
   }
 
+  .section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 24%, rgba(17,17,17,0.06) 0 1px, transparent 1.7px),
+      radial-gradient(circle at 78% 68%, rgba(17,17,17,0.05) 0 1px, transparent 1.5px),
+      linear-gradient(0deg, transparent 0 18%, rgba(17,17,17,0.10) 18% 22%, transparent 22% 100%),
+      linear-gradient(0deg, transparent 0 63%, rgba(17,17,17,0.07) 63% 67%, transparent 67% 100%),
+      linear-gradient(92deg, transparent 0 70%, rgba(17,17,17,0.06) 70% 77%, transparent 77% 100%);
+    background-size: 18px 18px, 24px 24px, auto, auto, auto;
+    opacity: 0.32;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .section.dark::before,
+  .section.brown::before,
+  .section.gray::before {
+    background:
+      radial-gradient(circle at 20% 30%, rgba(242,239,232,0.05) 0 1px, transparent 1.7px),
+      radial-gradient(circle at 70% 80%, rgba(242,239,232,0.04) 0 1px, transparent 1.5px),
+      linear-gradient(0deg, transparent 0 16%, rgba(242,91,35,0.09) 16% 20%, transparent 20% 100%),
+      linear-gradient(0deg, transparent 0 58%, rgba(242,91,35,0.06) 58% 62%, transparent 62% 100%),
+      linear-gradient(91deg, transparent 0 66%, rgba(242,91,35,0.05) 66% 74%, transparent 74% 100%);
+    background-size: 18px 18px, 24px 24px, auto, auto, auto;
+    opacity: 0.36;
+  }
+
   .section-number {
     position: absolute;
-    right: -18px;
-    bottom: -38px;
+    right: -42px;
+    bottom: -42px;
     font-family: "Space Mono Local", ui-monospace, monospace;
-    font-size: clamp(138px, 19vw, 272px);
-    line-height: 0.76;
+    font-size: clamp(190px, 28vw, 420px);
+    line-height: 0.72;
     font-weight: 700;
-    letter-spacing: -0.22em;
-    opacity: 0.14;
+    letter-spacing: -0.18em;
+    transform: scaleX(1.35);
+    transform-origin: right bottom;
+    opacity: 0.13;
     pointer-events: none;
     user-select: none;
   }
@@ -503,10 +560,10 @@
   h2 {
     max-width: 640px;
     font-family: "DM Sans Local", system-ui, sans-serif;
-    font-size: clamp(35px, 5.2vw, 70px);
-    line-height: 0.87;
+    font-size: clamp(40px, 5.7vw, 82px);
+    line-height: 0.86;
     font-weight: 500;
-    letter-spacing: -0.105em;
+    letter-spacing: -0.11em;
     text-transform: uppercase;
   }
 
@@ -515,7 +572,7 @@
     z-index: 2;
     max-width: 660px;
     margin-left: 76px;
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .section.paper .section-body,
@@ -787,10 +844,8 @@
     }
 
     .statement-mark::before {
-      left: 22px;
-      top: 18px;
-      width: 23px;
-      height: 23px;
+      width: 20px;
+      height: 20px;
     }
 
     .statement-body {
@@ -811,9 +866,10 @@
     }
 
     .section-number {
-      font-size: 132px;
-      bottom: -20px;
-      right: -8px;
+      font-size: 178px;
+      bottom: -26px;
+      right: -18px;
+      transform: scaleX(1.28);
     }
 
     .privacy-link {
@@ -860,7 +916,7 @@
     <section class="hero">
       <div class="hero-left">
         <div class="hero-left-note">
-          Translation where your eyes already are. Optional AI explanations with your own API key.
+          Private by default. No accounts. No ads. No tracking. Optional AI explanations use your own API key.
         </div>
         <div class="hero-left-shape" aria-hidden="true"></div>
         <div class="vertical-title">Private by default</div>
@@ -880,11 +936,11 @@
         <div class="privacy-statement">
           <div class="statement-mark" aria-hidden="true"></div>
           <div class="statement-body">
-            <div class="statement-label">Core privacy statement</div>
-            <div class="statement-headline">Kukuluku does not collect, sell, or share your personal data.</div>
+            <div class="statement-label">Private by default / core promise</div>
+            <div class="statement-headline">No accounts. No ads. No tracking.</div>
             <div class="statement-copy">
-              The extension is designed for selected-text translation without accounts,
-              advertising, analytics, or third-party tracking.
+              Kukuluku does not collect, sell, or share your personal data.
+              Selected-text translation stays simple, and optional AI explanations run with your own API key.
             </div>
           </div>
         </div>
@@ -1021,7 +1077,7 @@
       <div class="footer-right">
         <p>
           Questions? Use the Feedback button in the extension or contact
-          <a href="https://t.me/BizCalc_bot" target="_blank" rel="noopener noreferrer">@BizCalc_bot</a>.
+          <a href="https://t.me/kukuluku_bot" target="_blank" rel="noopener noreferrer">@kukuluku_bot</a>.
         </p>
         <div class="footer-meta">© 2026 Kukuluku. Privacy Policy for Kukuluku — In-page Translator.</div>
       </div>
