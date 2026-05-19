@@ -48,17 +48,20 @@
 
   :root {
     --orange: #f25b23;
-    --orange-hot: #ff6a2a;
+    --orange-hot: #ff6b2a;
     --black: #111111;
-    --black-soft: #171717;
-    --ink: #19110d;
-    --brown: #321a12;
+    --black-2: #151515;
+    --ink: #1b120d;
+    --brown: #2a1711;
     --gray: #4d4d4d;
     --paper: #f2efe8;
-    --paper-soft: rgba(242, 239, 232, 0.72);
-    --paper-muted: rgba(242, 239, 232, 0.48);
-    --line-dark: rgba(17, 17, 17, 0.42);
-    --line-light: rgba(242, 239, 232, 0.16);
+    --light-gray: #e0e0e0;
+    --muted-dark: rgba(17, 17, 17, 0.64);
+    --muted-light: rgba(242, 239, 232, 0.66);
+    --faint-light: rgba(242, 239, 232, 0.16);
+    --faint-dark: rgba(17, 17, 17, 0.18);
+    --border-dark: rgba(17, 17, 17, 0.82);
+    --border-light: rgba(242, 239, 232, 0.18);
   }
 
   * {
@@ -69,14 +72,18 @@
 
   html {
     scroll-behavior: smooth;
+    background: var(--black);
   }
 
   body {
+    min-height: 100vh;
     background: var(--black);
     color: var(--paper);
-    font-family: "DM Sans Local", system-ui, sans-serif;
+    font-family: "DM Sans Local", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 15px;
-    line-height: 1.65;
+    line-height: 1.62;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
   }
 
   a {
@@ -86,55 +93,75 @@
 
   .page {
     min-height: 100vh;
-    background: var(--orange);
+    background:
+      linear-gradient(90deg, rgba(17,17,17,0.10) 1px, transparent 1px),
+      linear-gradient(rgba(17,17,17,0.10) 1px, transparent 1px),
+      var(--orange);
+    background-size: 48px 48px;
   }
 
   .frame {
-    max-width: 1320px;
+    max-width: 1380px;
     margin: 0 auto;
-    border-left: 1px solid var(--line-dark);
-    border-right: 1px solid var(--line-dark);
+    border-left: 2px solid var(--border-dark);
+    border-right: 2px solid var(--border-dark);
+    background: var(--orange);
   }
 
-  .top {
+  .topbar {
     display: grid;
-    grid-template-columns: 1.25fr 0.75fr 0.65fr;
-    min-height: 112px;
+    grid-template-columns: 1.22fr 0.78fr 0.62fr;
+    min-height: 118px;
     border-bottom: 2px solid var(--black);
   }
 
   .top-cell {
-    padding: 18px 22px;
-    border-right: 1px solid var(--line-dark);
     position: relative;
+    padding: 18px 22px;
+    border-right: 1px solid rgba(17,17,17,0.46);
+    overflow: hidden;
   }
 
   .top-cell:last-child {
     border-right: 0;
   }
 
-  .mono {
-    font-family: "Space Mono Local", ui-monospace, monospace;
+  .meta {
+    font-family: "Space Mono Local", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.085em;
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.70);
   }
 
-  .micro {
-    font-family: "Space Mono Local", ui-monospace, monospace;
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(17, 17, 17, 0.72);
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 15px;
+  }
+
+  .brand-dot {
+    width: clamp(18px, 2.1vw, 28px);
+    height: clamp(18px, 2.1vw, 28px);
+    border-radius: 999px;
+    background: var(--black);
+    box-shadow:
+      0 0 0 7px rgba(17,17,17,0.10),
+      inset 0 0 0 2px rgba(242,239,232,0.12);
+    flex: 0 0 auto;
   }
 
   .brand {
-    margin-top: 16px;
-    font-family: "Space Mono Local", ui-monospace, monospace;
-    font-size: clamp(34px, 5.8vw, 82px);
-    line-height: 0.88;
+    font-family: "Space Mono Local", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: clamp(31px, 5.1vw, 76px);
+    line-height: 0.92;
     font-weight: 700;
-    letter-spacing: 0.055em;
+    letter-spacing: 0.045em;
     text-transform: uppercase;
     color: var(--black);
+    white-space: nowrap;
   }
 
   .brand sup {
@@ -143,87 +170,98 @@
     margin-left: 4px;
   }
 
-  .status {
+  .top-status {
     position: absolute;
     right: 22px;
     bottom: 18px;
+    max-width: 220px;
+    text-align: right;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
-    line-height: 1.65;
+    line-height: 1.7;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    text-align: right;
-    color: rgba(17, 17, 17, 0.72);
+    color: rgba(17,17,17,0.72);
   }
 
   .hero {
     display: grid;
-    grid-template-columns: 0.38fr 0.62fr;
-    min-height: 560px;
+    grid-template-columns: 38% 62%;
+    min-height: 610px;
     border-bottom: 2px solid var(--black);
   }
 
   .hero-left {
     position: relative;
-    padding: 24px;
     border-right: 2px solid var(--black);
-    overflow: hidden;
     background:
-      linear-gradient(90deg, rgba(17,17,17,0.08) 1px, transparent 1px),
-      linear-gradient(rgba(17,17,17,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17,17,17,0.12) 1px, transparent 1px),
+      linear-gradient(rgba(17,17,17,0.12) 1px, transparent 1px),
       var(--orange);
-    background-size: 42px 42px;
+    background-size: 44px 44px;
+    overflow: hidden;
+    min-height: 610px;
   }
 
   .vertical-title {
     position: absolute;
     left: 22px;
-    bottom: 22px;
+    bottom: 24px;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    font-family: "Space Mono Local", ui-monospace, monospace;
-    font-size: clamp(54px, 8vw, 104px);
-    line-height: 0.86;
-    font-weight: 700;
-    letter-spacing: -0.08em;
+    font-family: "DM Sans Local", system-ui, sans-serif;
+    font-size: clamp(58px, 8.6vw, 120px);
+    line-height: 0.8;
+    font-weight: 500;
+    letter-spacing: -0.115em;
     text-transform: uppercase;
-    color: rgba(17, 17, 17, 0.96);
+    color: rgba(17,17,17,0.98);
   }
 
   .hero-left-note {
     position: absolute;
     right: 24px;
-    top: 24px;
-    width: 180px;
+    top: 22px;
+    width: 220px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
-    line-height: 1.6;
-    letter-spacing: 0.06em;
+    line-height: 1.65;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: rgba(17, 17, 17, 0.74);
+    color: rgba(17,17,17,0.72);
+  }
+
+  .hero-left-shape {
+    position: absolute;
+    right: -120px;
+    bottom: -118px;
+    width: 330px;
+    height: 330px;
+    border: 2px solid rgba(17,17,17,0.34);
+    transform: rotate(45deg);
   }
 
   .hero-right {
     position: relative;
-    padding: 28px 30px 34px;
     background:
-      linear-gradient(90deg, rgba(242,239,232,0.035) 1px, transparent 1px),
-      linear-gradient(rgba(242,239,232,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,239,232,0.045) 1px, transparent 1px),
+      linear-gradient(rgba(242,239,232,0.045) 1px, transparent 1px),
       var(--black);
-    background-size: 42px 42px;
+    background-size: 44px 44px;
     overflow: hidden;
+    padding: 30px 30px 38px;
   }
 
-  .hero-num {
+  .hero-number {
     position: absolute;
-    right: -24px;
-    top: -42px;
+    right: -36px;
+    top: -58px;
     font-family: "Space Mono Local", ui-monospace, monospace;
-    font-size: clamp(150px, 23vw, 330px);
-    line-height: 0.82;
+    font-size: clamp(180px, 27vw, 390px);
+    line-height: 0.8;
     font-weight: 700;
-    letter-spacing: -0.16em;
-    color: rgba(242, 91, 35, 0.22);
+    letter-spacing: -0.20em;
+    color: rgba(242,91,35,0.20);
     pointer-events: none;
     user-select: none;
   }
@@ -231,12 +269,12 @@
   .hero-title {
     position: relative;
     z-index: 2;
-    max-width: 760px;
+    max-width: 850px;
     font-family: "DM Sans Local", system-ui, sans-serif;
-    font-size: clamp(62px, 10.5vw, 138px);
-    line-height: 0.82;
+    font-size: clamp(66px, 10.4vw, 145px);
+    line-height: 0.8;
     font-weight: 500;
-    letter-spacing: -0.105em;
+    letter-spacing: -0.115em;
     text-transform: uppercase;
     color: var(--paper);
   }
@@ -247,50 +285,83 @@
 
   .hero-title .outline {
     color: transparent;
-    -webkit-text-stroke: 1.4px rgba(242, 239, 232, 0.58);
-            text-stroke: 1.4px rgba(242, 239, 232, 0.58);
+    -webkit-text-stroke: 1.2px rgba(242,239,232,0.60);
+            text-stroke: 1.2px rgba(242,239,232,0.60);
   }
 
   .updated {
     position: relative;
     z-index: 2;
-    margin-top: 28px;
+    margin-top: 26px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--paper-muted);
+    color: rgba(242,239,232,0.50);
   }
 
-  .summary {
+  .privacy-statement {
     position: relative;
-    z-index: 2;
-    margin-top: 46px;
-    max-width: 680px;
+    z-index: 3;
+    margin-top: 48px;
+    max-width: 720px;
     display: grid;
-    grid-template-columns: 8px 1fr;
-    background: rgba(242, 91, 35, 0.12);
-    border: 1px solid rgba(242, 91, 35, 0.26);
+    grid-template-columns: 82px 1fr;
+    background: var(--brown);
+    border: 1px solid rgba(242,91,35,0.42);
+    box-shadow: 0 20px 0 rgba(242,91,35,0.16);
   }
 
-  .summary-bar {
+  .statement-mark {
+    position: relative;
+    border-right: 1px solid rgba(242,91,35,0.35);
+    background:
+      linear-gradient(90deg, rgba(242,91,35,0.12) 1px, transparent 1px),
+      linear-gradient(rgba(242,91,35,0.12) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .statement-mark::before {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
     background: var(--orange);
+    box-shadow: 0 0 0 10px rgba(242,91,35,0.12);
   }
 
-  .summary-body {
-    padding: 22px 24px;
-    color: var(--paper-soft);
+  .statement-body {
+    padding: 24px 28px 26px;
   }
 
-  .summary strong {
-    display: block;
+  .statement-label {
     margin-bottom: 12px;
-    color: var(--paper);
-    font-weight: 500;
-    font-size: 17px;
+    font-family: "Space Mono Local", ui-monospace, monospace;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--orange);
   }
 
-  .strip {
+  .statement-headline {
+    margin-bottom: 12px;
+    font-size: clamp(20px, 2vw, 28px);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    color: var(--paper);
+  }
+
+  .statement-copy {
+    max-width: 580px;
+    color: rgba(242,239,232,0.68);
+  }
+
+  .quick-strip {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border-bottom: 2px solid var(--black);
@@ -298,10 +369,10 @@
     color: var(--black);
   }
 
-  .strip-item {
-    min-height: 74px;
-    padding: 16px 18px;
-    border-right: 1px solid var(--line-dark);
+  .quick-item {
+    min-height: 80px;
+    padding: 17px 18px;
+    border-right: 1px solid rgba(17,17,17,0.28);
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
     line-height: 1.55;
@@ -309,130 +380,157 @@
     text-transform: uppercase;
   }
 
-  .strip-item:last-child {
+  .quick-item:last-child {
     border-right: 0;
   }
 
-  .grid {
+  .quick-item strong {
+    display: block;
+    margin-bottom: 4px;
+    font-family: "DM Sans Local", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    text-transform: none;
+  }
+
+  .sections {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 
   .section {
     position: relative;
-    min-height: 350px;
-    padding: 24px;
+    min-height: 360px;
+    padding: 25px 24px 28px;
     border-right: 2px solid var(--black);
     border-bottom: 2px solid var(--black);
     overflow: hidden;
-    background: var(--orange);
     color: var(--black);
+    background:
+      linear-gradient(90deg, rgba(17,17,17,0.08) 1px, transparent 1px),
+      linear-gradient(rgba(17,17,17,0.08) 1px, transparent 1px),
+      var(--orange);
+    background-size: 36px 36px;
   }
 
   .section:nth-child(2n) {
     border-right: 0;
   }
 
+  .section.paper {
+    background:
+      linear-gradient(90deg, rgba(17,17,17,0.045) 1px, transparent 1px),
+      linear-gradient(rgba(17,17,17,0.045) 1px, transparent 1px),
+      var(--paper);
+    background-size: 36px 36px;
+  }
+
   .section.dark {
     background:
-      linear-gradient(90deg, rgba(242,239,232,0.035) 1px, transparent 1px),
-      linear-gradient(rgba(242,239,232,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,239,232,0.04) 1px, transparent 1px),
+      linear-gradient(rgba(242,239,232,0.04) 1px, transparent 1px),
       var(--black);
-    background-size: 38px 38px;
-    color: var(--paper);
-  }
-
-  .section.paper {
-    background: var(--paper);
-    color: var(--black);
-  }
-
-  .section.gray {
-    background: var(--gray);
+    background-size: 36px 36px;
     color: var(--paper);
   }
 
   .section.brown {
-    background: var(--brown);
+    background:
+      linear-gradient(90deg, rgba(242,91,35,0.09) 1px, transparent 1px),
+      linear-gradient(rgba(242,91,35,0.09) 1px, transparent 1px),
+      var(--brown);
+    background-size: 36px 36px;
     color: var(--paper);
   }
 
-  .section-num {
+  .section.gray {
+    background:
+      linear-gradient(90deg, rgba(242,239,232,0.04) 1px, transparent 1px),
+      linear-gradient(rgba(242,239,232,0.04) 1px, transparent 1px),
+      var(--gray);
+    background-size: 36px 36px;
+    color: var(--paper);
+  }
+
+  .section-number {
     position: absolute;
-    right: -12px;
-    bottom: -32px;
+    right: -18px;
+    bottom: -38px;
     font-family: "Space Mono Local", ui-monospace, monospace;
-    font-size: clamp(110px, 16vw, 230px);
-    line-height: 0.78;
+    font-size: clamp(138px, 19vw, 272px);
+    line-height: 0.76;
     font-weight: 700;
-    letter-spacing: -0.18em;
-    opacity: 0.16;
+    letter-spacing: -0.22em;
+    opacity: 0.14;
     pointer-events: none;
     user-select: none;
   }
 
-  .section.dark .section-num,
-  .section.gray .section-num,
-  .section.brown .section-num {
+  .section.dark .section-number,
+  .section.brown .section-number,
+  .section.gray .section-number {
     color: var(--orange);
-    opacity: 0.26;
+    opacity: 0.28;
   }
 
-  .section.paper .section-num {
+  .section.paper .section-number {
     color: var(--orange);
-    opacity: 0.18;
+    opacity: 0.20;
   }
 
-  .section-head {
+  .section-header {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: 54px 1fr;
+    grid-template-columns: 58px 1fr;
     gap: 18px;
     align-items: start;
     margin-bottom: 24px;
   }
 
-  .small-num {
+  .section-kicker {
+    padding-top: 7px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 11px;
+    line-height: 1.4;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: currentColor;
-    opacity: 0.62;
-    padding-top: 8px;
+    opacity: 0.58;
   }
 
   h2 {
+    max-width: 640px;
     font-family: "DM Sans Local", system-ui, sans-serif;
-    font-size: clamp(32px, 4.8vw, 62px);
-    line-height: 0.9;
+    font-size: clamp(35px, 5.2vw, 70px);
+    line-height: 0.87;
     font-weight: 500;
-    letter-spacing: -0.095em;
+    letter-spacing: -0.105em;
     text-transform: uppercase;
-    max-width: 560px;
   }
 
-  .body {
+  .section-body {
     position: relative;
     z-index: 2;
-    max-width: 620px;
-    margin-left: 72px;
+    max-width: 660px;
+    margin-left: 76px;
+    font-size: 15px;
   }
 
-  .body p {
+  .section.paper .section-body,
+  .section .section-body {
+    color: rgba(17,17,17,0.78);
+  }
+
+  .section.dark .section-body,
+  .section.brown .section-body,
+  .section.gray .section-body {
+    color: rgba(242,239,232,0.70);
+  }
+
+  .section-body p {
     margin-bottom: 12px;
-  }
-
-  .section.dark .body,
-  .section.gray .body,
-  .section.brown .body {
-    color: var(--paper-soft);
-  }
-
-  .section.paper .body,
-  .section .body {
-    color: rgba(17, 17, 17, 0.78);
   }
 
   ul {
@@ -442,7 +540,7 @@
 
   li {
     position: relative;
-    padding-left: 24px;
+    padding-left: 25px;
     margin-bottom: 9px;
   }
 
@@ -456,98 +554,104 @@
   }
 
   .hl {
-    font-weight: 500;
     color: currentColor;
+    font-weight: 500;
   }
 
   code {
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 12px;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 0;
     color: currentColor;
-    background: rgba(17, 17, 17, 0.10);
-    border: 1px solid rgba(17, 17, 17, 0.20);
+    background: rgba(17,17,17,0.10);
+    border: 1px solid rgba(17,17,17,0.22);
   }
 
   .dark code,
-  .gray code,
-  .brown code {
+  .brown code,
+  .gray code {
     background: rgba(242,239,232,0.08);
     border-color: rgba(242,239,232,0.18);
   }
 
-  .link-strong {
+  .privacy-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-left: 4px;
-    padding: 2px 8px 3px;
+    margin: 4px 0 0 6px;
+    padding: 4px 9px 5px;
+    border: 1px solid var(--black);
     background: var(--black);
     color: var(--orange-hot);
-    border: 1px solid rgba(17, 17, 17, 0.84);
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 11px;
-    line-height: 1.35;
-    letter-spacing: 0.04em;
+    line-height: 1.2;
+    letter-spacing: 0.035em;
     text-transform: uppercase;
+    transition: transform 160ms ease, background 160ms ease, color 160ms ease;
   }
 
-  .dark .link-strong,
-  .gray .link-strong,
-  .brown .link-strong {
+  .privacy-link::after {
+    content: "↗";
+    font-size: 10px;
+  }
+
+  .privacy-link:hover {
+    transform: translateY(-1px);
+    background: var(--orange-hot);
+    color: var(--black);
+  }
+
+  .dark .privacy-link,
+  .brown .privacy-link,
+  .gray .privacy-link {
     background: var(--orange);
     color: var(--black);
     border-color: var(--orange);
   }
 
-  .link-strong::after {
-    content: "↗";
-    font-size: 10px;
-  }
-
-  .link-strong:hover {
-    transform: translateY(-1px);
-    opacity: 1;
+  .dark .privacy-link:hover,
+  .brown .privacy-link:hover,
+  .gray .privacy-link:hover {
+    background: var(--paper);
+    border-color: var(--paper);
   }
 
   .footer {
     display: grid;
-    grid-template-columns: 0.42fr 0.58fr;
-    min-height: 190px;
-    background: var(--black);
-    color: var(--paper);
+    grid-template-columns: 38% 62%;
+    min-height: 204px;
     border-top: 2px solid var(--orange);
-  }
-
-  .footer-left,
-  .footer-right {
-    padding: 26px 24px;
+    background:
+      linear-gradient(90deg, rgba(242,91,35,0.09) 1px, transparent 1px),
+      linear-gradient(rgba(242,91,35,0.09) 1px, transparent 1px),
+      var(--black);
+    background-size: 40px 40px;
+    color: var(--paper);
   }
 
   .footer-left {
+    padding: 26px 24px;
     border-right: 2px solid var(--orange);
-    background:
-      linear-gradient(90deg, rgba(242,91,35,0.10) 1px, transparent 1px),
-      linear-gradient(rgba(242,91,35,0.10) 1px, transparent 1px);
-    background-size: 38px 38px;
   }
 
   .footer-title {
     font-family: "DM Sans Local", system-ui, sans-serif;
-    font-size: clamp(46px, 7vw, 88px);
-    line-height: 0.82;
+    font-size: clamp(50px, 7.5vw, 104px);
+    line-height: 0.8;
     font-weight: 500;
-    letter-spacing: -0.09em;
+    letter-spacing: -0.11em;
     text-transform: uppercase;
     color: var(--orange);
   }
 
   .footer-right {
+    padding: 26px 28px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: var(--paper-soft);
+    color: rgba(242,239,232,0.72);
   }
 
   .footer-right a {
@@ -555,105 +659,167 @@
     border-bottom: 1px solid rgba(242,91,35,0.55);
   }
 
+  .footer-meta {
+    margin-top: 26px;
+    font-family: "Space Mono Local", ui-monospace, monospace;
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(242,239,232,0.42);
+  }
+
   @media (max-width: 980px) {
-    .top,
+    .topbar,
     .hero,
-    .strip,
-    .grid,
+    .quick-strip,
+    .sections,
     .footer {
       grid-template-columns: 1fr;
     }
 
     .top-cell,
     .hero-left,
-    .strip-item,
+    .quick-item,
+    .section,
     .footer-left {
       border-right: 0;
+    }
+
+    .top-cell,
+    .hero-left,
+    .quick-item,
+    .footer-left {
       border-bottom: 2px solid var(--black);
     }
 
     .hero-left {
-      min-height: 260px;
+      min-height: 280px;
     }
 
     .vertical-title {
       writing-mode: initial;
       transform: none;
-      font-size: clamp(44px, 12vw, 88px);
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      font-size: clamp(48px, 12vw, 92px);
     }
 
     .hero-left-note {
-      position: relative;
-      right: auto;
-      top: auto;
       width: auto;
-      max-width: 320px;
+      max-width: 360px;
     }
 
-    .section,
     .section:nth-child(2n) {
       border-right: 0;
     }
 
-    .body {
+    .section-body {
       margin-left: 0;
     }
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 580px) {
     body {
       font-size: 14px;
     }
 
+    .frame {
+      border-left: 0;
+      border-right: 0;
+    }
+
     .top-cell,
-    .hero-left,
     .hero-right,
+    .hero-left,
     .section,
     .footer-left,
     .footer-right {
       padding: 18px;
     }
 
+    .brand-row {
+      gap: 10px;
+    }
+
+    .brand-dot {
+      width: 16px;
+      height: 16px;
+    }
+
+    .brand {
+      font-size: clamp(28px, 10vw, 44px);
+    }
+
+    .top-status {
+      position: static;
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .hero-left,
     .hero-right {
-      min-height: 430px;
+      min-height: 420px;
     }
 
     .hero-title {
-      font-size: 56px;
-      letter-spacing: -0.09em;
+      font-size: clamp(54px, 16vw, 72px);
+      letter-spacing: -0.095em;
     }
 
-    .hero-num {
-      font-size: 120px;
-      right: -10px;
-      top: -20px;
+    .hero-number {
+      top: -22px;
+      right: -12px;
+      font-size: 136px;
+      opacity: 0.18;
     }
 
-    .summary {
+    .privacy-statement {
+      grid-template-columns: 1fr;
       margin-top: 34px;
     }
 
-    .section {
-      min-height: 310px;
+    .statement-mark {
+      min-height: 60px;
+      border-right: 0;
+      border-bottom: 1px solid rgba(242,91,35,0.35);
     }
 
-    .section-head {
+    .statement-mark::before {
+      left: 22px;
+      top: 18px;
+      width: 23px;
+      height: 23px;
+    }
+
+    .statement-body {
+      padding: 20px;
+    }
+
+    .section {
+      min-height: 330px;
+    }
+
+    .section-header {
       grid-template-columns: 1fr;
       gap: 8px;
     }
 
     h2 {
-      font-size: 34px;
+      font-size: 35px;
     }
 
-    .section-num {
-      font-size: 118px;
-      bottom: -18px;
+    .section-number {
+      font-size: 132px;
+      bottom: -20px;
+      right: -8px;
     }
 
-    .link-strong {
+    .privacy-link {
       display: inline-flex;
-      margin: 5px 0 0;
+      margin-left: 0;
+      margin-top: 7px;
     }
   }
 </style>
@@ -663,15 +829,18 @@
 <div class="page">
   <div class="frame">
 
-    <header class="top">
+    <header class="topbar">
       <div class="top-cell">
-        <div class="micro">Product / Chrome Extension / v1.0</div>
-        <div class="brand">Kukuluku<sup>™</sup></div>
+        <div class="meta">Product / Chrome Extension / v1.0</div>
+        <div class="brand-row">
+          <div class="brand-dot" aria-hidden="true"></div>
+          <div class="brand">Kukuluku<sup>™</sup></div>
+        </div>
       </div>
 
       <div class="top-cell">
-        <div class="micro">Document</div>
-        <div class="status">
+        <div class="meta">Document</div>
+        <div class="top-status">
           Privacy Policy<br>
           User Data / Limited Use<br>
           May 15, 2026
@@ -679,8 +848,8 @@
       </div>
 
       <div class="top-cell">
-        <div class="micro">Mode</div>
-        <div class="status">
+        <div class="meta">Mode</div>
+        <div class="top-status">
           No ads<br>
           No accounts<br>
           No tracking
@@ -693,11 +862,12 @@
         <div class="hero-left-note">
           Translation where your eyes already are. Optional AI explanations with your own API key.
         </div>
+        <div class="hero-left-shape" aria-hidden="true"></div>
         <div class="vertical-title">Private by default</div>
       </div>
 
       <div class="hero-right">
-        <div class="hero-num">00</div>
+        <div class="hero-number">00</div>
 
         <h1 class="hero-title">
           Privacy<br>
@@ -707,33 +877,36 @@
 
         <div class="updated">Last updated: May 15, 2026</div>
 
-        <div class="summary">
-          <div class="summary-bar"></div>
-          <div class="summary-body">
-            <strong>Kukuluku does not collect, sell, or share your personal data.</strong>
-            The extension is designed for selected-text translation without accounts,
-            advertising, analytics, or third-party tracking.
+        <div class="privacy-statement">
+          <div class="statement-mark" aria-hidden="true"></div>
+          <div class="statement-body">
+            <div class="statement-label">Core privacy statement</div>
+            <div class="statement-headline">Kukuluku does not collect, sell, or share your personal data.</div>
+            <div class="statement-copy">
+              The extension is designed for selected-text translation without accounts,
+              advertising, analytics, or third-party tracking.
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="strip">
-      <div class="strip-item">Core translation / Google Translate</div>
-      <div class="strip-item">Optional AI / BYOK model</div>
-      <div class="strip-item">API keys / local storage</div>
-      <div class="strip-item">No analytics / no ad SDK</div>
+    <div class="quick-strip" aria-label="Privacy summary">
+      <div class="quick-item"><strong>Core translation</strong>Google Translate for selected text.</div>
+      <div class="quick-item"><strong>Optional AI</strong>BYOK model: your API key, your provider.</div>
+      <div class="quick-item"><strong>Local storage</strong>Keys and history stay on device.</div>
+      <div class="quick-item"><strong>No tracking</strong>No ads, accounts, analytics, or sale.</div>
     </div>
 
-    <main class="grid">
+    <main class="sections">
 
       <section class="section paper">
-        <div class="section-num">01</div>
-        <div class="section-head">
-          <div class="small-num">01</div>
+        <div class="section-number">01</div>
+        <div class="section-header">
+          <div class="section-kicker">01</div>
           <h2>What data is processed</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>Kukuluku does not operate its own processing servers and does not require an account. During use, the following is sent directly to third-party providers:</p>
           <ul>
             <li><span class="hl">Selected text</span> — sent to Google Translate and, if enabled, to your chosen AI provider.</li>
@@ -741,29 +914,29 @@
             <li><span class="hl">Translation provider</span> — Google Translate is used for core translations.</li>
             <li><span class="hl">AI provider</span> — optional explanations via Claude, GPT, Gemini, or Grok.</li>
           </ul>
-          <p>When translation or AI explanation is requested, selected text is processed under the third-party provider’s own policy.</p>
+          <p>When translation or AI explanation is requested, selected text is processed under the third-party provider's own policy. Kukuluku does not control third-party retention or downstream processing.</p>
         </div>
       </section>
 
       <section class="section dark">
-        <div class="section-num">02</div>
-        <div class="section-head">
-          <div class="small-num">02</div>
+        <div class="section-number">02</div>
+        <div class="section-header">
+          <div class="section-kicker">02</div>
           <h2>API keys</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>API keys are stored <span class="hl">locally on your device only</span> using <code>chrome.storage.local</code>.</p>
           <p>Keys are not sent to Kukuluku infrastructure.</p>
         </div>
       </section>
 
       <section class="section brown">
-        <div class="section-num">03</div>
-        <div class="section-head">
-          <div class="small-num">03</div>
+        <div class="section-number">03</div>
+        <div class="section-header">
+          <div class="section-kicker">03</div>
           <h2>Recent translation history</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>Kukuluku can store recent translations locally in your browser so you can review or copy them from the extension popup.</p>
           <p>This history may include the selected text, the translated text, source language, target language, and timestamp.</p>
           <p>Recent translation history is stored using <code>chrome.storage.local</code>. It is not sent to Kukuluku servers and can be cleared from the extension settings.</p>
@@ -771,54 +944,54 @@
       </section>
 
       <section class="section gray">
-        <div class="section-num">04</div>
-        <div class="section-head">
-          <div class="small-num">04</div>
+        <div class="section-number">04</div>
+        <div class="section-header">
+          <div class="section-kicker">04</div>
           <h2>Local usage counters</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>Kukuluku stores local counters, for example translation count and active days, to decide when to show optional rating or support prompts.</p>
           <p>These counters contain no personal identifiers and stay on your device.</p>
         </div>
       </section>
 
       <section class="section">
-        <div class="section-num">05</div>
-        <div class="section-head">
-          <div class="small-num">05</div>
+        <div class="section-number">05</div>
+        <div class="section-header">
+          <div class="section-kicker">05</div>
           <h2>No analytics, no ads, no sale</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>Kukuluku does not include analytics trackers or ad SDKs and does not sell user data.</p>
           <p>Kukuluku uses user data only to provide and improve selected-text translation and optional AI explanations, and complies with the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
         </div>
       </section>
 
       <section class="section paper">
-        <div class="section-num">06</div>
-        <div class="section-head">
-          <div class="small-num">06</div>
+        <div class="section-number">06</div>
+        <div class="section-header">
+          <div class="section-kicker">06</div>
           <h2>Third-party services</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>Selected text may be sent to the following services depending on your settings:</p>
           <ul>
-            <li><span class="hl">Google Translate</span> — core translation. <a class="link-strong" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
-            <li><span class="hl">Anthropic Claude</span> — optional AI explanations. <a class="link-strong" href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer">Anthropic Privacy</a></li>
-            <li><span class="hl">OpenAI GPT</span> — optional AI explanations. <a class="link-strong" href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy</a></li>
-            <li><span class="hl">Google Gemini</span> — optional AI explanations. <a class="link-strong" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
-            <li><span class="hl">xAI Grok</span> — optional AI explanations. <a class="link-strong" href="https://x.ai/legal/privacy-policy" target="_blank" rel="noopener noreferrer">xAI Privacy</a></li>
+            <li><span class="hl">Google Translate</span> — core translation. <a class="privacy-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
+            <li><span class="hl">Anthropic Claude</span> — optional AI explanations. <a class="privacy-link" href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer">Anthropic Privacy</a></li>
+            <li><span class="hl">OpenAI GPT</span> — optional AI explanations. <a class="privacy-link" href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy</a></li>
+            <li><span class="hl">Google Gemini</span> — optional AI explanations. <a class="privacy-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
+            <li><span class="hl">xAI Grok</span> — optional AI explanations. <a class="privacy-link" href="https://x.ai/legal/privacy-policy" target="_blank" rel="noopener noreferrer">xAI Privacy</a></li>
           </ul>
         </div>
       </section>
 
       <section class="section dark">
-        <div class="section-num">07</div>
-        <div class="section-head">
-          <div class="small-num">07</div>
+        <div class="section-number">07</div>
+        <div class="section-header">
+          <div class="section-kicker">07</div>
           <h2>How to delete your data</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <ul>
             <li>Remove Kukuluku from <code>chrome://extensions</code> — this clears extension local storage.</li>
             <li>To remove only API keys: open Kukuluku → Advanced → AI explanations → clear key field → Save key.</li>
@@ -828,12 +1001,12 @@
       </section>
 
       <section class="section brown">
-        <div class="section-num">08</div>
-        <div class="section-head">
-          <div class="small-num">08</div>
+        <div class="section-number">08</div>
+        <div class="section-header">
+          <div class="section-kicker">08</div>
           <h2>Policy changes</h2>
         </div>
-        <div class="body">
+        <div class="section-body">
           <p>If this policy changes materially, we will update the date above and describe key updates in the Chrome Web Store release notes.</p>
         </div>
       </section>
@@ -850,7 +1023,7 @@
           Questions? Use the Feedback button in the extension or contact
           <a href="https://t.me/BizCalc_bot" target="_blank" rel="noopener noreferrer">@BizCalc_bot</a>.
         </p>
-        <p>© 2026 Kukuluku. Privacy Policy for Kukuluku — In-page Translator.</p>
+        <div class="footer-meta">© 2026 Kukuluku. Privacy Policy for Kukuluku — In-page Translator.</div>
       </div>
     </footer>
 
