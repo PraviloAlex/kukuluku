@@ -1,66 +1,259 @@
-Kukuluku — Privacy Policy
-Last updated: May 2026
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kukuluku Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for Kukuluku — In-page Translator." />
 
-Kukuluku does not collect, store, or share your personal data.
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --card: #ffffff;
+      --text: #171717;
+      --muted: #666666;
+      --border: #e8e0d8;
+      --accent: #ff7a1a;
+      --soft: #fff6ee;
+    }
 
-———————————————————————————
-TRANSLATION
-———————————————————————————
+    * {
+      box-sizing: border-box;
+    }
 
-When you select text on a webpage, it is sent to the Google Translate API
-to produce a translation. This request goes directly from your browser to
-Google's servers. Kukuluku does not see, log, or store this text.
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.65;
+    }
 
-———————————————————————————
-AI EXPLANATIONS (OPTIONAL)
-———————————————————————————
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
 
-If you choose to use AI explanations, you provide your own API key from a
-third-party provider (Anthropic, OpenAI, Google, or xAI). When you request
-an explanation, the selected text is sent directly from your browser to that
-provider's API using your key.
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 42px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+    }
 
-Kukuluku does not proxy, log, or store these requests. Your API key is stored
-locally in Chrome's built-in storage (chrome.storage.sync) and is never
-transmitted anywhere by Kukuluku.
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 7px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      background: #fff;
+    }
 
-———————————————————————————
-WHAT IS STORED LOCALLY IN YOUR BROWSER
-———————————————————————————
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
 
-- Your preferred translation language
-- Your chosen theme (dark / light)
-- Your chosen mode (auto / hotkey)
-- Your UI language
-- Your optional API keys (per provider)
+    h1 {
+      margin: 0 0 8px;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
 
-All of this stays in your browser. You can remove it at any time by
-uninstalling the extension via chrome://extensions.
+    .updated {
+      margin: 0 0 30px;
+      color: var(--muted);
+      font-size: 16px;
+    }
 
-———————————————————————————
-NO ANALYTICS. NO ACCOUNTS. NO ADS. NO TRACKING.
-———————————————————————————
+    .summary {
+      margin: 24px 0 34px;
+      padding: 18px 20px;
+      background: var(--soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      font-size: 17px;
+    }
 
-Kukuluku contains no analytics scripts, no user accounts, no advertising,
-and no third-party tracking of any kind.
+    h2 {
+      margin: 34px 0 10px;
+      padding-top: 6px;
+      font-size: 20px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
-———————————————————————————
-THIRD-PARTY SERVICES
-———————————————————————————
+    p {
+      margin: 0 0 14px;
+    }
 
-Kukuluku may communicate with the following services on your behalf:
+    ul {
+      margin: 0 0 16px;
+      padding-left: 22px;
+    }
 
-- Google Translate API       https://policies.google.com/privacy
-- Anthropic API (if used)    https://www.anthropic.com/privacy
-- OpenAI API (if used)       https://openai.com/privacy
-- Google Gemini API (if used) https://policies.google.com/privacy
-- xAI API (if used)          https://x.ai/privacy
+    li {
+      margin-bottom: 8px;
+    }
 
-These services are only contacted when you actively use the corresponding
-feature. Kukuluku does not share data between providers.
+    a {
+      color: var(--text);
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
 
-———————————————————————————
-CONTACT
-———————————————————————————
+    .section {
+      border-top: 1px solid var(--border);
+      padding-top: 4px;
+    }
 
-Questions or concerns? Reach out via Telegram: https://t.me/BizCalc_bot
+    .footer {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 24px 14px;
+      }
+
+      .card {
+        padding: 28px 20px;
+        border-radius: 18px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <article class="card">
+      <div class="badge">
+        <span class="dot"></span>
+        Kukuluku — In-page Translator
+      </div>
+
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: May 2026</p>
+
+      <div class="summary">
+        <strong>Kukuluku does not collect, sell, or share your personal data.</strong>
+        The extension is designed for quick in-page translation without user accounts,
+        advertising, analytics, or third-party tracking.
+      </div>
+
+      <section class="section">
+        <h2>Translation</h2>
+        <p>
+          When you select text on a webpage, it may be sent to the Google Translate service
+          to produce a translation.
+        </p>
+        <p>
+          This request is made from your browser for the purpose of providing the translation.
+          Kukuluku does not log, store, sell, or share the selected text.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>AI Explanations — Optional</h2>
+        <p>
+          If you choose to use AI explanations, you provide your own API key from a third-party
+          provider such as Anthropic, OpenAI, Google, or xAI.
+        </p>
+        <p>
+          When you request an explanation, the selected text may be sent to the provider's API
+          using your own API key.
+        </p>
+        <p>
+          Kukuluku does not proxy, log, or store these AI explanation requests.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>API Keys</h2>
+        <p>
+          API keys provided by the user are stored in Chrome extension storage and are used only
+          to connect to the AI provider selected by the user.
+        </p>
+        <p>
+          Kukuluku does not send your API keys to the developer's server.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>What Is Stored in Your Browser</h2>
+        <p>
+          Kukuluku may store extension preferences, including:
+        </p>
+        <ul>
+          <li>Your preferred translation language</li>
+          <li>Your chosen theme: dark or light</li>
+          <li>Your chosen mode: automatic translation or hotkey mode</li>
+          <li>Your UI language</li>
+          <li>Your optional API keys, if you choose to add them</li>
+        </ul>
+        <p>
+          You can remove this data at any time by uninstalling the extension via
+          <strong>chrome://extensions</strong>, or by removing your API keys in the extension settings.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>No Analytics. No Accounts. No Ads. No Tracking.</h2>
+        <p>
+          Kukuluku contains no analytics scripts, no user accounts, no advertising,
+          and no third-party tracking of any kind.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Third-Party Services</h2>
+        <p>
+          Kukuluku may communicate with the following services on your behalf:
+        </p>
+        <ul>
+          <li>Google Translate service — <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></li>
+          <li>Anthropic API, if used — <a href="https://www.anthropic.com/privacy">https://www.anthropic.com/privacy</a></li>
+          <li>OpenAI API, if used — <a href="https://openai.com/privacy">https://openai.com/privacy</a></li>
+          <li>Google Gemini API, if used — <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></li>
+          <li>xAI API, if used — <a href="https://x.ai/privacy">https://x.ai/privacy</a></li>
+        </ul>
+        <p>
+          These services are only contacted when you actively use the corresponding feature.
+          Kukuluku does not share data between providers.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Contact</h2>
+        <p>
+          Questions or concerns? Reach out via Telegram:
+          <a href="https://t.me/BizCalc_bot">https://t.me/BizCalc_bot</a>
+        </p>
+      </section>
+
+      <div class="footer">
+        © 2026 Kukuluku. This Privacy Policy applies to the Kukuluku browser extension.
+      </div>
+    </article>
+  </main>
+</body>
+</html>
