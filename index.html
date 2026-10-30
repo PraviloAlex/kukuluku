@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kukuluku — Privacy Policy</title>
+<title>Kukuluku Translate - Privacy Policy</title>
 
 <style>
   @font-face {
     font-family: "DM Sans Local";
-    src: url("./dm-sans-latin-300-normal.woff2") format("woff2");
+    src: url("./fonts/dm-sans-latin-300-normal.woff2") format("woff2");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -16,7 +16,7 @@
 
   @font-face {
     font-family: "DM Sans Local";
-    src: url("./dm-sans-latin-400-normal.woff2") format("woff2");
+    src: url("./fonts/dm-sans-latin-400-normal.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@
 
   @font-face {
     font-family: "DM Sans Local";
-    src: url("./dm-sans-latin-500-normal.woff2") format("woff2");
+    src: url("./fonts/dm-sans-latin-500-normal.woff2") format("woff2");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -32,7 +32,7 @@
 
   @font-face {
     font-family: "Space Mono Local";
-    src: url("./space-mono-latin-400-normal.woff2") format("woff2");
+    src: url("./fonts/kuku-mono-400.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -40,7 +40,7 @@
 
   @font-face {
     font-family: "Space Mono Local";
-    src: url("./space-mono-latin-700-normal.woff2") format("woff2");
+    src: url("./fonts/kuku-mono-700.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -122,6 +122,7 @@
     padding: 18px 22px;
     border-right: 1px solid rgba(17,17,17,0.46);
     overflow: hidden;
+    overflow: clip;
   }
 
   .top-cell:last-child {
@@ -203,6 +204,7 @@
       var(--orange);
     background-size: 44px 44px;
     overflow: hidden;
+    overflow: clip;
     min-height: 610px;
   }
 
@@ -259,6 +261,7 @@
       var(--black);
     background-size: 44px 44px;
     overflow: hidden;
+    overflow: clip;
     padding: 30px 30px 38px;
   }
 
@@ -442,6 +445,7 @@
     border-right: 2px solid var(--black);
     border-bottom: 2px solid var(--black);
     overflow: hidden;
+    overflow: clip;
     isolation: isolate;
     color: var(--black);
     background:
@@ -451,7 +455,7 @@
     background-size: 36px 36px;
   }
 
-  .section:nth-child(2n) {
+  .section:nth-child(2n + 1) {
     border-right: 0;
   }
 
@@ -986,6 +990,7 @@
     background-size: auto, auto, 44px 44px, 44px 44px;
     color: var(--paper);
     overflow: hidden;
+    overflow: clip;
   }
 
   .footer::before {
@@ -1013,12 +1018,13 @@
   .footer-left {
     padding: 38px 34px 34px;
     border-right: 2px solid var(--orange);
+    container-type: inline-size;
   }
 
   .footer-title {
     margin: 0 0 26px;
     font-family: "DM Sans Local", system-ui, sans-serif;
-    font-size: clamp(72px, 8vw, 132px);
+    font-size: min(132px, 23cqi);
     line-height: 0.78;
     font-weight: 500;
     letter-spacing: -0.11em;
@@ -1091,32 +1097,59 @@
   }
 
   .footer-mission {
-    padding: 46px 38px 38px;
+    display: flex;
+    flex-direction: column;
+    padding: 46px 38px 30px;
     border-right: 2px solid var(--orange);
+    container-type: inline-size;
   }
 
   .mission-wrap {
-    position: relative;
-    min-height: 270px;
+    display: grid;
+    gap: 20px;
+    margin-bottom: 10px;
+    justify-items: start;
+  }
+
+  .mission-row {
+    display: grid;
+    gap: 14px;
+    justify-items: start;
+    max-width: 100%;
+  }
+
+  .mission-row.shift { padding-left: 9%; }
+
+  .mission-tapes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 24px;
+    max-width: 100%;
   }
 
   .mission-tape {
-    position: absolute;
+    position: relative;
     display: inline-block;
-    padding: 10px 28px 12px;
+    max-width: calc(100% - 20px);
+    margin: 0 10px;
+    padding: 9px 24px 11px;
     background:
       linear-gradient(90deg, rgba(255,255,255,0.035), rgba(0,0,0,0.08)),
       #171717;
     color: rgba(242,239,232,0.92);
     font-family: "Space Mono Local", ui-monospace, monospace;
+    font-size: clamp(14px, 4.2cqi, 30px);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     line-height: 1.18;
+    overflow-wrap: anywhere;
     box-shadow:
       0 0 0 1px rgba(242,239,232,0.035),
       0 18px 34px rgba(0,0,0,0.24);
     filter: contrast(1.04);
+    transform: rotate(var(--tilt, 0deg));
   }
 
   .mission-tape::before,
@@ -1144,43 +1177,18 @@
     z-index: 2;
   }
 
-  .mission-main {
-    left: 8%;
-    top: 0;
-    font-size: clamp(24px, 3.2vw, 43px);
-    transform: rotate(-3deg);
-  }
-
-  .mission-private {
-    left: 24%;
-    top: 84px;
-    font-size: clamp(23px, 2.9vw, 40px);
-    transform: rotate(1deg);
-  }
-
-  .mission-noacc {
-    left: 2%;
-    top: 158px;
-    font-size: clamp(22px, 2.6vw, 36px);
-    transform: rotate(-2deg);
-  }
-
-  .mission-noads {
-    right: 7%;
-    top: 160px;
-    font-size: clamp(22px, 2.6vw, 36px);
-    transform: rotate(2deg);
-  }
-
-  .mission-api {
-    left: 16%;
-    top: 228px;
-    font-size: clamp(22px, 2.5vw, 34px);
-    transform: rotate(-1deg);
-  }
+  .mission-main { --tilt: -2.5deg; font-size: clamp(16px, 5cqi, 40px); }
+  .mission-private { --tilt: 1deg; font-size: clamp(15px, 4.6cqi, 34px); }
+  .mission-quiet { --tilt: -1deg; }
+  .mission-noacc { --tilt: -2deg; }
+  .mission-noads { --tilt: 2deg; }
+  .mission-api { --tilt: -1deg; }
 
   .mission-label {
-    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-left: 10px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
     line-height: 1;
@@ -1191,30 +1199,14 @@
 
   .mission-label::after {
     content: "";
-    position: absolute;
-    top: 50%;
-    width: 66px;
+    width: 46px;
     height: 1px;
     background: var(--orange);
   }
 
-  .ml-mission { right: 0; top: 20px; }
-  .ml-mission::after { right: 100%; margin-right: 9px; }
-
-  .ml-privacy { left: 0; top: 112px; }
-  .ml-privacy::after { left: 100%; margin-left: 9px; }
-
-  .ml-respect { right: 0; top: 187px; }
-  .ml-respect::after { right: 100%; margin-right: 9px; }
-
-  .ml-control { left: 0; top: 254px; }
-  .ml-control::after { left: 100%; margin-left: 9px; }
-
   .footer-meta {
-    position: absolute;
-    left: 38px;
-    right: 30px;
-    bottom: 28px;
+    margin-top: auto;
+    padding-top: 30px;
     font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 11px;
     line-height: 1.5;
@@ -1360,13 +1352,6 @@
       min-height: auto;
     }
 
-    .footer-meta {
-      position: relative;
-      left: auto;
-      right: auto;
-      bottom: auto;
-      margin-top: 330px;
-    }
   }
 
   @media (max-width: 580px) {
@@ -1378,24 +1363,12 @@
     }
 
     .footer-title {
-      font-size: clamp(60px, 20vw, 88px);
+      font-size: min(88px, 23cqi);
     }
 
-    .mission-wrap {
-      min-height: 360px;
+    .mission-row.shift {
+      padding-left: 0;
     }
-
-    .mission-tape {
-      left: 0 !important;
-      right: auto !important;
-      max-width: 100%;
-    }
-
-    .mission-main { top: 0; }
-    .mission-private { top: 86px; }
-    .mission-noacc { top: 150px; }
-    .mission-noads { top: 214px; }
-    .mission-api { top: 278px; }
 
     .mission-label {
       display: none;
@@ -1410,237 +1383,141 @@
     }
   }
 
-
-  /* === v9 footer polish / artifact fix === */
-  .footer {
-    grid-template-columns: 34% 43% 23%;
-    min-height: 410px;
-    overflow: hidden;
+  .section.wide {
+    grid-column: 1 / -1;
+    border-right: 0;
   }
 
-  .footer-left,
-  .footer-mission,
-  .footer-qr-panel {
-    min-height: 410px;
+  .section.wide .section-number {
+    right: auto;
+    left: -14px;
+    transform-origin: left bottom;
   }
 
-  .footer-left {
-    padding: 38px 28px 34px;
+  .section.flow {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+    gap: 34px;
+    padding-bottom: 32px;
   }
 
-  .footer-title {
-    font-size: clamp(58px, 6.9vw, 108px);
-    line-height: 0.82;
-    letter-spacing: -0.085em;
-    white-space: nowrap;
-    max-width: 100%;
+  .section.flow .section-header {
+    align-self: start;
+    margin-bottom: 0;
   }
 
-  .footer-contact-copy {
-    max-width: 360px;
-    font-size: 17px;
-    line-height: 1.55;
+  .section.flow .section-body {
+    margin-left: 0;
+    max-width: none;
   }
 
-  .footer-mission {
-    padding: 46px 30px 36px;
+  .flow-table {
+    width: 100%;
+    margin: 4px 0 14px;
+    border-collapse: collapse;
+    font-size: 14.6px;
+    line-height: 1.42;
   }
 
-  .mission-wrap {
-    min-height: 292px;
-    overflow: visible;
-  }
-
-  .mission-tape {
-    box-sizing: border-box;
-    max-width: 92%;
-    padding: 8px 22px 10px;
-    letter-spacing: 0.105em;
-    line-height: 1.14;
-    white-space: normal;
-  }
-
-  .mission-main {
-    left: 10%;
-    top: 4px;
-    max-width: 78%;
-    font-size: clamp(19px, 2.35vw, 34px);
-    transform: rotate(-3deg);
-  }
-
-  .mission-private {
-    left: 22%;
-    top: 92px;
-    max-width: 68%;
-    font-size: clamp(18px, 2.15vw, 30px);
-    transform: rotate(1deg);
-  }
-
-  .mission-noacc {
-    left: 6%;
-    top: 158px;
-    max-width: 44%;
-    font-size: clamp(16px, 1.8vw, 26px);
-    transform: rotate(-2deg);
-  }
-
-  .mission-noads {
-    right: 8%;
-    top: 158px;
-    max-width: 34%;
-    font-size: clamp(16px, 1.8vw, 26px);
-    transform: rotate(2deg);
-  }
-
-  .mission-api {
-    left: 17%;
-    top: 222px;
-    max-width: 76%;
-    font-size: clamp(17px, 1.95vw, 28px);
-    transform: rotate(-1deg);
-  }
-
-  .mission-label {
-    font-size: 9px;
-    letter-spacing: 0.105em;
-  }
-
-  .ml-mission { right: 2%; top: 22px; }
-  .ml-privacy { left: 1%; top: 114px; }
-  .ml-respect { right: 0; top: 182px; }
-  .ml-control { left: 1%; top: 252px; }
-
-  .mission-label::after {
-    width: 44px;
-  }
-
-  .footer-meta {
-    left: 30px;
-    right: 24px;
-    bottom: 28px;
+  .flow-table th {
+    padding: 0 16px 9px 0;
+    border-bottom: 2px solid var(--black);
+    font-family: "Space Mono Local", ui-monospace, monospace;
     font-size: 10px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-align: left;
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.70);
   }
 
-  .footer-qr-panel {
-    padding: 34px 26px 30px;
+  .flow-table td {
+    padding: 10px 16px 10px 0;
+    border-bottom: 1px solid rgba(17,17,17,0.24);
+    vertical-align: top;
   }
 
-  .qr-module {
-    max-width: 278px;
+  .flow-table td:first-child {
+    width: 27%;
+    font-weight: 500;
+    color: var(--black);
   }
 
-  .qr-module-title {
-    margin-bottom: 16px;
-    font-size: 12px;
+  .flow-table td:last-child {
+    width: 23%;
+    padding-right: 0;
   }
 
-  .qr-card {
-    width: min(238px, 100%);
-    padding: 16px 16px 18px;
-    margin-bottom: 16px;
+  .flow-note {
+    font-size: 14.6px;
+    line-height: 1.5;
   }
 
-  .qr-scan {
-    margin-top: 16px;
-    font-size: 26px;
-    letter-spacing: 0.105em;
-  }
-
-  .qr-handle {
-    font-size: 14px;
-  }
-
-  .qr-copy {
-    max-width: 220px;
-    font-size: 13.5px;
-  }
-
-  @media (min-width: 1180px) and (max-width: 1440px) {
-    .footer-title {
-      font-size: clamp(58px, 6.7vw, 100px);
-    }
-
-    .footer-contact-copy {
-      font-size: 16px;
-    }
-
-    .mission-main {
-      font-size: clamp(19px, 2.15vw, 31px);
-    }
-
-    .mission-private {
-      font-size: clamp(18px, 2vw, 28px);
-    }
-
-    .mission-noacc,
-    .mission-noads {
-      font-size: clamp(16px, 1.65vw, 24px);
-    }
-
-    .mission-api {
-      font-size: clamp(17px, 1.8vw, 26px);
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .footer {
+  @media (max-width: 980px) {
+    .section.flow {
       grid-template-columns: 1fr;
+      gap: 20px;
     }
 
-    .footer-title {
-      white-space: normal;
-      font-size: clamp(64px, 16vw, 112px);
-    }
-
-    .footer-left,
-    .footer-mission,
-    .footer-qr-panel {
-      min-height: auto;
-    }
-
-    .footer-mission {
-      min-height: 430px;
-    }
-
-    .mission-wrap {
-      min-height: 330px;
-    }
-
-    .footer-meta {
-      position: relative;
+    .section.wide .section-number {
+      right: -42px;
       left: auto;
-      right: auto;
-      bottom: auto;
-      margin-top: 26px;
+      transform-origin: right bottom;
     }
   }
 
-  @media (max-width: 580px) {
-    .footer-mission {
-      min-height: 450px;
+  @media (max-width: 640px) {
+    .flow-table,
+    .flow-table tbody,
+    .flow-table tr,
+    .flow-table td {
+      display: block;
+      width: auto;
     }
 
-    .mission-wrap {
-      min-height: 380px;
+    .flow-table thead {
+      display: none;
     }
 
-    .mission-tape {
-      max-width: 96%;
-      padding: 8px 16px 10px;
+    .flow-table tr {
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(17,17,17,0.24);
+    }
+
+    .flow-table td,
+    .flow-table td:first-child,
+    .flow-table td:last-child {
+      width: auto;
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .flow-table td:first-child {
+      margin-bottom: 3px;
+    }
+
+    .flow-table td:nth-child(2)::before,
+    .flow-table td:nth-child(3)::before {
+      font-family: "Space Mono Local", ui-monospace, monospace;
+      font-size: 10px;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(17,17,17,0.70);
     }
 
-    .mission-main,
-    .mission-private,
-    .mission-noacc,
-    .mission-noads,
-    .mission-api {
-      left: 0 !important;
-      right: auto !important;
-      max-width: 100%;
+    .flow-table td:nth-child(2)::before {
+      content: "Sent: ";
+    }
+
+    .flow-table td:nth-child(3)::before {
+      content: "Kept: ";
+    }
+
+    .section.wide .section-number {
+      right: -18px;
     }
   }
-
 </style>
 </head>
 
@@ -1650,7 +1527,7 @@
 
     <header class="topbar">
       <div class="top-cell">
-        <div class="meta">Product / Chrome Extension / v1.0</div>
+        <div class="meta">Product / Chrome Extension / v3.0</div>
         <div class="brand-row">
           <div class="brand-dot" aria-hidden="true"></div>
           <div class="brand">Kukuluku<sup>™</sup></div>
@@ -1662,7 +1539,7 @@
         <div class="top-status">
           Privacy Policy<br>
           User Data / Limited Use<br>
-          May 15, 2026
+          October 30, 2026
         </div>
       </div>
 
@@ -1679,7 +1556,7 @@
     <section class="hero">
       <div class="hero-left">
         <div class="hero-left-note">
-          Selected text only. Core translation is direct. Optional AI uses your own API key.
+          Selected text — or the visible page while you hold a key. Core translation is direct. Optional AI uses your own API key.
         </div>
         <div class="hero-left-shape" aria-hidden="true"></div>
         <div class="vertical-title">Private by default</div>
@@ -1694,7 +1571,7 @@
           <span class="outline">User Data</span>
         </h1>
 
-        <div class="updated">Last updated: May 15, 2026</div>
+        <div class="updated">Last updated: October 30, 2026</div>
 
         <div class="privacy-statement">
           <div class="statement-mark" aria-hidden="true"></div>
@@ -1702,7 +1579,7 @@
             <div class="statement-label">Core privacy statement</div>
             <div class="statement-headline">Kukuluku does not collect, sell, or share your personal data.</div>
             <div class="statement-copy">
-              The extension is designed for selected-text translation without accounts,
+              The extension is designed for translating selected text — and, while you hold a key, the visible page — without accounts,
               advertising, analytics, or third-party tracking.
             </div>
           </div>
@@ -1711,29 +1588,39 @@
     </section>
 
     <div class="quick-strip" aria-label="Privacy summary">
-      <div class="quick-item"><strong>Core translation</strong>Google Translate for selected text.</div>
+      <div class="quick-item"><strong>Core translation</strong>Google Translate for selected text and, on hold, the visible page.</div>
       <div class="quick-item"><strong>Optional AI</strong>BYOK model: your API key, your provider.</div>
-      <div class="quick-item"><strong>Local storage</strong>Keys and history stay on device.</div>
-      <div class="quick-item"><strong>No tracking</strong>No ads, accounts, analytics, or sale.</div>
+      <div class="quick-item"><strong>Local storage</strong>Keys, history and lexicon stay on device.</div>
+      <div class="quick-item"><strong>No addresses</strong>Pages you visit are never recorded.</div>
     </div>
 
     <main class="sections">
 
-      <section class="section paper">
+      <section class="section paper wide flow">
         <div class="section-number">01</div>
         <div class="section-header">
           <div class="section-kicker">01</div>
-          <h2>What data is processed</h2>
+          <h2>What is sent, and when</h2>
         </div>
         <div class="section-body">
-          <p>Kukuluku does not operate its own processing servers and does not require an account. During use, the following is sent directly to third-party providers:</p>
-          <ul>
-            <li><span class="hl">Selected text</span> — sent to Google Translate and, if enabled, to your chosen AI provider.</li>
-            <li><span class="hl">Target language</span> — sent as part of translation requests.</li>
-            <li><span class="hl">Translation provider</span> — Google Translate is used for core translations.</li>
-            <li><span class="hl">AI provider</span> — optional explanations via Claude, GPT, Gemini, or Grok.</li>
-          </ul>
-          <p>When translation or AI explanation is requested, selected text is processed under the third-party provider's own policy. Kukuluku does not control third-party retention or downstream processing.</p>
+          <p>Kukuluku has no servers of its own and needs no account. Text goes directly from your browser to Google Translate and, if you enabled it, to your chosen AI provider.</p>
+          <table class="flow-table">
+            <thead>
+              <tr><th>You do this</th><th>This is sent</th><th>This is kept</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Select text</td><td>The selection.</td><td>Recent history and word memory, on your device</td></tr>
+              <tr><td>Select your own text in a field and press Alt+Q</td><td>That text. Password, card and one-time-code fields are never read.</td><td>Nothing</td></tr>
+              <tr><td>Hold Alt+Q</td><td>The text on screen, and a little around it.</td><td>Nothing: let go and the page is back</td></tr>
+              <tr><td>Press Alt+Q twice</td><td>The text on screen, and text the site adds later.</td><td>Nothing: Alt+Q, Esc or the bar ends it</td></tr>
+              <tr><td>Always translate a site</td><td>The visible text, each time one of its pages opens. Switch it off in the popup.</td><td>The site name, in your own list</td></tr>
+              <tr><td>Hold Alt over a paragraph</td><td>That paragraph, and the next one if it is close by.</td><td>Nothing</td></tr>
+              <tr><td>Click while holding Alt</td><td>A word you pick, for its dictionary entry; the sentence again if you ask for another wording.</td><td>Only what you save yourself</td></tr>
+            </tbody>
+          </table>
+          <p class="flow-note"><span class="hl">Never read or sent while you hold a key</span> — text in input fields and editors, passwords, code blocks, parts a site marks as not to be translated, the page title and its address. While Kukuluku is paused or off for a site, holding the keys does not translate the page there.</p>
+          <p class="flow-note">At other times Kukuluku reads only your selection and the sentence around it. Every request also carries the target language. Pronunciation uses your browser’s speech voices; some of them work online. Translations stay in the open tab’s memory until it is reloaded or closed, and they reach your history or lexicon only if you save a word or sentence yourself.</p>
+          <p class="flow-note"><strong>Nothing else leaves your device, and page addresses are not recorded at all.</strong> Your history, saved words, word memory and usage counters stay local: see section 03. Providers process text under their own policies, and Kukuluku does not control what they keep: see section 06.</p>
         </div>
       </section>
 
@@ -1741,11 +1628,13 @@
         <div class="section-number">02</div>
         <div class="section-header">
           <div class="section-kicker">02</div>
-          <h2>API keys</h2>
+          <h2>The address of the page you are on</h2>
         </div>
         <div class="section-body">
-          <p>API keys are stored <span class="hl">locally on your device only</span> using <code>chrome.storage.local</code>.</p>
-          <p>Keys are not sent to Kukuluku infrastructure.</p>
+          <p><span class="hl">Kukuluku does not record the addresses of pages you visit.</span> There is no browsing history and no list of addresses — not in your history, not in your lexicon, not in word memory, and not on any server. The only site names stored are the ones you add yourself, described in section 04.</p>
+          <p>The extension uses the address of the tab you are on in two situations. <span class="hl">On each page</span> it checks, on your device, whether the page is Google Docs or Sheets and whether its host name is in your own lists from section 04, so it knows when to stay silent and when to translate. And <span class="hl">while the Kukuluku popup is open</span>, it takes the host name — for example <code>example.com</code> — to show that name next to the <span class="hl">translate on this site</span> and <span class="hl">always translate pages</span> switches. This is what the <code>activeTab</code> permission is for.</p>
+          <p>In both cases the address is used on your device and then discarded. A site name is written down only if you flip one of those switches yourself, and then it goes into your own local list described in section 04.</p>
+          <p>Earlier versions kept the page address with each saved word. Version 3.0 no longer does, and it deletes those old addresses from your device when it updates.</p>
         </div>
       </section>
 
@@ -1753,12 +1642,14 @@
         <div class="section-number">03</div>
         <div class="section-header">
           <div class="section-kicker">03</div>
-          <h2>Recent translation history</h2>
+          <h2>History and lexicon</h2>
         </div>
         <div class="section-body">
-          <p>Kukuluku can store recent translations locally in your browser so you can review or copy them from the extension popup.</p>
-          <p>This history may include the selected text, the translated text, source language, target language, and timestamp.</p>
-          <p>Recent translation history is stored using <code>chrome.storage.local</code>. It is not sent to Kukuluku servers and can be cleared from the extension settings.</p>
+          <p>Kukuluku can store recent translations locally in your browser so you can review or copy them from the extension popup. This history may include the selected text, the translated text, source language, target language, timestamp, and <span class="hl">the sentence surrounding your selection</span> — the sentence is used to show the phrase in context when you review a saved word.</p>
+          <p>Words you look up more than once, and words or sentences you save yourself, are kept locally as a lexicon you can review. An entry holds the word or phrase, its translation, an example sentence, how many separate days you have met it, and your review progress. It does not hold the page it came from.</p>
+          <p>Kukuluku also keeps a local <span class="hl">word memory</span>: for each word you translate it records the translation, how many times you looked it up, and when you first and last saw it. This is what lets a repeated word be answered instantly and without a network request. It stores no page addresses and no sentences, and it is capped so it cannot grow without limit.</p>
+          <p>All of this is stored using <code>chrome.storage.local</code> on your own device. <strong>None of it is sent to Kukuluku servers</strong> — there are no Kukuluku servers — and it can be cleared from the extension.</p>
+          <p>Local counters, for example translation count and active days, decide when to show optional rating or support prompts. They contain no personal identifiers and stay on your device.</p>
         </div>
       </section>
 
@@ -1766,11 +1657,12 @@
         <div class="section-number">04</div>
         <div class="section-header">
           <div class="section-kicker">04</div>
-          <h2>Local usage counters</h2>
+          <h2>Sites you add yourself</h2>
         </div>
         <div class="section-body">
-          <p>Kukuluku stores local counters, for example translation count and active days, to decide when to show optional rating or support prompts.</p>
-          <p>These counters contain no personal identifiers and stay on your device.</p>
+          <p>You can switch Kukuluku off for a particular site. The site’s host name is then saved locally so the extension knows to stay silent there.</p>
+          <p>You can also set a site to <span class="hl">always translate pages</span>. Its host name is saved in a second local list, so the extension knows to open that site’s pages translated.</p>
+          <p>These lists contain <span class="hl">only sites you added yourself</span>. They are not a record of where you have been: a site you never switched never appears in them. You can flip either switch back in the popup while you are on that site; the full list of quiet sites is also in the extension settings. Your other settings — gestures you turned off, the language you write in — are stored locally the same way.</p>
         </div>
       </section>
 
@@ -1782,7 +1674,8 @@
         </div>
         <div class="section-body">
           <p>Kukuluku does not include analytics trackers or ad SDKs and does not sell user data.</p>
-          <p>Kukuluku uses user data only to provide and improve selected-text translation and optional AI explanations, and complies with the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
+          <p>After you remove Kukuluku, Chrome opens a short page on our website asking why. Its address carries only the extension version and the menu language — no page addresses, no history, no identifiers. If you click a reason, only that reason, the version and the language are recorded, in a Google Form; if your language is missing and you pick it from the list, the language you ask for is recorded too. There is no free-text field. Answering is optional, and closing the page sends nothing.</p>
+          <p>Kukuluku uses user data only to provide and improve translation of selected text and the visible page and optional AI explanations, and complies with the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
         </div>
       </section>
 
@@ -1793,9 +1686,9 @@
           <h2>Third-party services</h2>
         </div>
         <div class="section-body">
-          <p>Selected text may be sent to the following services depending on your settings:</p>
+          <p>Selected text — and visible page text while you hold the page-translation keys — may be sent to the following services depending on your settings:</p>
           <ul>
-            <li><span class="hl">Google Translate</span> — core translation. <a class="privacy-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
+            <li><span class="hl">Google Translate</span> — core translation, dictionary entries and other wordings of a sentence. <a class="privacy-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
             <li><span class="hl">Anthropic Claude</span> — optional AI explanations. <a class="privacy-link" href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer">Anthropic Privacy</a></li>
             <li><span class="hl">OpenAI GPT</span> — optional AI explanations. <a class="privacy-link" href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy</a></li>
             <li><span class="hl">Google Gemini</span> — optional AI explanations. <a class="privacy-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy</a></li>
@@ -1812,9 +1705,11 @@
         </div>
         <div class="section-body">
           <ul>
-            <li>Remove Kukuluku from <code>chrome://extensions</code> — this clears extension local storage.</li>
-            <li>To remove only API keys: open Kukuluku → Advanced → AI explanations → clear key field → Save key.</li>
-            <li>To remove recent translation history: open Kukuluku → History → Clear.</li>
+            <li><span class="hl">Everything at once</span> — remove Kukuluku from <code>chrome://extensions</code>. This clears all extension local storage.</li>
+            <li><span class="hl">API key</span> — open Kukuluku &rarr; Settings &rarr; AI explanations &rarr; clear the key field &rarr; Save key.</li>
+            <li><span class="hl">Translation history</span> — open Kukuluku &rarr; Settings &rarr; Data &rarr; Clear history.</li>
+            <li><span class="hl">Lexicon</span> — open Kukuluku &rarr; Lexicon &rarr; Remove next to a word.</li>
+            <li><span class="hl">Sites without translation</span> — open Kukuluku &rarr; Settings &rarr; Sites without translation &rarr; turn a site back on.</li>
           </ul>
         </div>
       </section>
@@ -1823,6 +1718,18 @@
         <div class="section-number">08</div>
         <div class="section-header">
           <div class="section-kicker">08</div>
+          <h2>API keys</h2>
+        </div>
+        <div class="section-body">
+          <p>API keys are stored <span class="hl">locally on your device only</span> using <code>chrome.storage.local</code>.</p>
+          <p>Keys are not sent to Kukuluku infrastructure. A key is sent only to the AI provider you entered it for, and only when you ask for an explanation.</p>
+        </div>
+      </section>
+
+      <section class="section gray">
+        <div class="section-number">09</div>
+        <div class="section-header">
+          <div class="section-kicker">09</div>
           <h2>Policy changes</h2>
         </div>
         <div class="section-body">
@@ -1836,28 +1743,44 @@
       <div class="footer-left">
         <div class="footer-title">Contact</div>
         <p class="footer-contact-copy">
-          Questions? Use the Feedback button in the extension or contact
+          Questions? Open Kukuluku &rarr; Settings &rarr; How it works &rarr; Contact us, or write to
           <a href="https://t.me/kukuluku_bot" target="_blank" rel="noopener noreferrer">@kukuluku_bot</a>.
         </p>
-        <div class="footer-side-label">Kukuluku — Privacy First</div>
+        <div class="footer-side-label">Kukuluku Translate - Privacy First</div>
         <div class="footer-target" aria-hidden="true"></div>
       </div>
 
       <div class="footer-mission">
         <div class="mission-wrap">
-          <div class="mission-label ml-mission">Mission</div>
-          <div class="mission-label ml-privacy">Privacy</div>
-          <div class="mission-label ml-respect">Respect</div>
-          <div class="mission-label ml-control">Control</div>
-
-          <div class="mission-tape mission-main"><span>Translation where<br>your eyes already are</span></div>
-          <div class="mission-tape mission-private"><span>Private by default</span></div>
-          <div class="mission-tape mission-noacc"><span>No accounts</span></div>
-          <div class="mission-tape mission-noads"><span>No ads</span></div>
-          <div class="mission-tape mission-api"><span>Optional AI<br>with your own API key</span></div>
+          <div class="mission-row">
+            <span class="mission-label">Mission</span>
+            <div class="mission-tapes">
+              <div class="mission-tape mission-main"><span>Translation where<br>your eyes already are</span></div>
+            </div>
+          </div>
+          <div class="mission-row shift">
+            <span class="mission-label">Privacy</span>
+            <div class="mission-tapes">
+              <div class="mission-tape mission-private"><span>Private by default</span></div>
+              <div class="mission-tape mission-quiet"><span>Nothing sent in the background</span></div>
+            </div>
+          </div>
+          <div class="mission-row">
+            <span class="mission-label">Respect</span>
+            <div class="mission-tapes">
+              <div class="mission-tape mission-noacc"><span>No accounts</span></div>
+              <div class="mission-tape mission-noads"><span>No ads</span></div>
+            </div>
+          </div>
+          <div class="mission-row shift">
+            <span class="mission-label">Control</span>
+            <div class="mission-tapes">
+              <div class="mission-tape mission-api"><span>Optional AI<br>with your own API key</span></div>
+            </div>
+          </div>
         </div>
 
-        <div class="footer-meta">© 2026 Kukuluku. Privacy Policy for Kukuluku — In-page Translator.</div>
+        <div class="footer-meta">© 2026 Kukuluku Translate. Privacy Policy for Kukuluku Translate.</div>
       </div>
 
       <div class="footer-qr-panel">
