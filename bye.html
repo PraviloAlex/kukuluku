@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kukuluku</title>
+<style>
+  :root {
+    --page: #f4f1ea; --card: #fffefb; --line: #e0dbd1; --thin: #efeae1; --ink: #211e1a; --sub: #6f6a62; --faint: #8f887e;
+    --acc: #f25b23; --acc-t: #c9420c; --wash: #fff0e8; --ans: #fff8f3; --ans-line: #f6dccd;
+    --ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --page: #111316; --card: #191c21; --line: rgba(255,255,255,.12); --thin: rgba(255,255,255,.07); --ink: #f2f1f3;
+      --sub: #a3a7ae; --faint: #7b8088; --acc-t: #ff6b2a; --wash: rgba(242,91,35,.14); --ans: rgba(242,91,35,.07); --ans-line: rgba(242,91,35,.22); }
+  }
+  html[lang="ja"] { --ui: "Hiragino Sans", "Yu Gothic UI", "Meiryo", system-ui, sans-serif; }
+  html[lang="zh"] { --ui: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+  html[lang="zh-TW"] { --ui: "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
+  html[lang="ko"] { --ui: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: var(--page);
+    color: var(--ink); font: 400 15px/1.5 var(--ui); -webkit-font-smoothing: antialiased; }
+  main { width: 100%; max-width: 460px; padding: 26px 22px 20px; border-radius: 18px; background: var(--card);
+    box-shadow: 0 0 0 1px var(--line), 0 12px 32px rgba(20,20,20,.08); }
+  .ring { width: 36px; height: 36px; margin: 0 0 14px; border-radius: 50%; box-shadow: inset 0 0 0 4px var(--acc); }
+  h1 { margin: 0 0 4px; font-size: 20px; line-height: 1.3; }
+  p { margin: 0; color: var(--sub); }
+  /* Причины — строками, как в меню Kukuluku: любая длина помещается. */
+  .list { margin: 16px 0 14px; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); overflow: hidden; }
+  .row { display: flex; width: 100%; align-items: center; gap: 12px; min-height: 46px; padding: 8px 12px; border: 0; border-top: 1px solid var(--thin);
+    background: transparent; color: var(--ink); font: 500 14px/1.35 var(--ui); text-align: start; cursor: pointer; transition: background 140ms ease; }
+  .list .row:first-child { border-top: 0; }
+  .row:hover { background: var(--wash); }
+  .row:focus-visible { outline: 2px solid var(--acc); outline-offset: -2px; }
+  .row svg { flex: none; width: 18px; height: 18px; color: var(--faint); }
+  .row .chev { width: 14px; height: 14px; margin-inline-start: auto; color: var(--faint); }
+  .row span { flex: 1; min-width: 0; }
+  .row.picked { background: var(--wash); color: var(--acc-t); cursor: default; }
+  .row.picked svg { color: var(--acc); }
+  .row.picked .chev { display: none; }
+  .row.dim { opacity: .42; cursor: default; }
+  .row.dim:hover { background: transparent; }
+  [dir="rtl"] .row .chev { transform: scaleX(-1); }
+  /* Ответ прямо под выбранной причиной. */
+  .ans { padding: 12px 14px 14px 42px; border-top: 1px solid var(--ans-line); background: var(--ans); color: var(--ink); font-size: 13.5px; line-height: 1.5; }
+  [dir="rtl"] .ans { padding: 12px 42px 14px 14px; }
+  .ans p { color: var(--ink); }
+  .ans p + p { margin-top: 8px; }
+  .ans ol { margin: 8px 0 0; padding-inline-start: 18px; display: grid; gap: 6px; }
+  .ans .hint { margin-top: 10px; font-size: 12.5px; color: var(--sub); }
+  .act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+  [hidden] { display: none !important; }
+  .cta { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border: 0; border-radius: 9px; background: var(--acc); color: #fff;
+    font: 600 13px/1 var(--ui); text-decoration: none; cursor: pointer; white-space: nowrap; }
+  .cta:hover { filter: brightness(1.06); }
+  .cta:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+  select { height: 34px; min-width: 0; flex: 1 1 180px; padding: 0 10px; border-radius: 9px; border: 0; background: var(--card); color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line); font: 400 13.5px/1 var(--ui); }
+  .done { margin-top: 10px; color: var(--acc-t); font-weight: 500; }
+  .note { font-size: 12px; color: var(--faint); }
+  .again { display: inline-block; margin-top: 10px; color: var(--acc-t); font-size: 13px; font-weight: 500; text-decoration: none; }
+  .again:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main>
+  <div class="ring" aria-hidden="true"></div>
+  <h1 id="title">Kukuluku has been removed</h1>
+  <p id="ask">Why did you remove it? One click helps us know what to fix.</p>
+  <div class="list" id="reasons" role="group" aria-labelledby="ask"></div>
+  <p class="note" id="note"></p>
+  <a class="again" id="again" href="https://chromewebstore.google.com/detail/kukuluku/hjjilfhmifjaaifbddfcfpcipeogclen"></a>
+</main>
+<script>
+(function() {
+  'use strict';
+
+  // Страница, которую Chrome открывает после удаления Kukuluku (макет,
+  // вид U5 и слова Т2). Причины — строками; после нажатия под причиной
+  // ответ: что можно исправить и кнопка «Установить снова».
+  // В адресе — только версия и язык меню (?v=3.0&lang=vi), больше
+  // расширение ничего не передаёт. Ответ уходит в Google-форму, только если
+  // человек нажал причину, и только когда форма настроена ниже. Пока
+  // FORM.action пустой, страница ничего не отправляет.
+  var FORM = {
+    action: '',      // https://docs.google.com/forms/d/e/<id>/formResponse
+    reason: '',      // entry.<число> — поле «причина»
+    version: '',     // entry.<число> — поле «версия»
+    lang: '',        // entry.<число> — поле «язык меню»
+    wanted: ''       // entry.<число> — поле «какой язык нужен»
+  };
+  var STORE = 'https://chromewebstore.google.com/detail/kukuluku/hjjilfhmifjaaifbddfcfpcipeogclen';
+
+  // Черновик текстов на русском и английском — остальные языки после того,
+  // как владелец утвердит русский. Пока их нет, страница по-английски.
+  var TEXT = {
+    ru: {
+      title: 'Kukuluku удалён',
+      ask: 'Почему удалили? Одно нажатие — и мы поймём, что чинить.',
+      reasons: ['Перевод не появлялся', 'Нет моего языка', 'Перевод с ошибками', 'Уже не нужно'],
+      thanks: 'Спасибо! Это правда помогает.',
+      no_translation: {
+        lead: 'Обычно мешает одно из двух:',
+        list: ['Страница была служебной. В Интернет-магазин Chrome, настройки и новую вкладку Chrome не пускает никакие расширения. Откройте любой сайт и выделите текст там.',
+          'Текст уже на языке перевода: например, английский сайт и перевод на английский. Переводить нечего — поэтому окно не появляется. Выберите в меню свой язык.']
+      },
+      inaccurate: ['Переводит Google Переводчик — тот же, что встроен в Chrome.',
+        'Для трудных фраз в окне перевода есть ⋯ → «Объяснить»: ИИ разберёт смысл, тон и контекст.'],
+      not_needed: ['Спасибо, что пробовали. Возвращайтесь, когда снова понадобится перевод.'],
+      langAsk: 'Какой язык нужен?', langPick: 'Выберите язык…', langOther: 'Другой', langSend: 'Отправить',
+      langSent: 'Спасибо! Добавим — очередь языков мы составляем по таким ответам.',
+      langHint: 'Переводить Kukuluku уже умеет на 250 языков: меню → «Все языки» → поиск.',
+      reinstall: 'Установить снова',
+      note: 'Только версия и язык меню — без адресов страниц и личных данных.',
+      again: 'Передумали? Установить снова'
+    },
+    en: {
+      title: 'Kukuluku has been removed',
+      ask: 'Why did you remove it? One click helps us know what to fix.',
+      reasons: ['No translation appeared', 'My language is missing', 'The translation had errors', 'Don’t need it anymore'],
+      thanks: 'Thank you! This really helps.',
+      no_translation: {
+        lead: 'Usually it is one of two things:',
+        list: ['It was a Chrome page. Chrome keeps all extensions out of the Chrome Web Store, settings and the new tab page. Open any website and select text there.',
+          'The text is already in your translation language: say, an English site and translation into English. There is nothing to translate, so no window appears. Pick your own language in the menu.']
+      },
+      inaccurate: ['Translation comes from Google Translate — the same one built into Chrome.',
+        'For tricky phrases, the translation window has ⋯ → “Explain”: AI breaks down the meaning, tone and context.'],
+      not_needed: ['Thanks for trying it. Come back whenever you need a translation again.'],
+      langAsk: 'Which language do you need?', langPick: 'Choose a language…', langOther: 'Other', langSend: 'Send',
+      langSent: 'Thank you! We’ll add it — we line up new languages by answers like this.',
+      langHint: 'Kukuluku already translates into 250 languages: menu → “All languages” → search.',
+      reinstall: 'Install again',
+      note: 'Only the version and the menu language — no page addresses, no personal data.',
+      again: 'Changed your mind? Install again'
+    }
+  };
+
+  var CODES = ['no_translation', 'no_language', 'inaccurate', 'not_needed'];
+  // Значки строк: не появилось (перечёркнутый глаз), язык, перевод, выход.
+  var ICONS = {
+    no_translation: '<path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0 1 12 5c5 0 8.5 4.5 9.5 7a13 13 0 0 1-2.4 3.6"/><path d="M6.6 6.6C4.4 8 3 10.2 2.5 12c1 2.5 4.5 7 9.5 7a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+    no_language: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    inaccurate: '<path d="M3 5h10"/><path d="M8 3v2"/><path d="M5 9c1.4 2.6 3.6 4.4 6 5.2"/><path d="M11 5c-.6 4-3 7.3-7 9.2"/><path d="m13 21 4-9 4 9"/><path d="M14.4 18h5.2"/>',
+    not_needed: '<path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="m15 16 4-4-4-4"/><path d="M19 12H9"/>',
+    picked: '<path d="M20 6 9 17l-5-5"/>',
+    chev: '<path d="m9 6 6 6-6 6"/>'
+  };
+  // Языки для «Какой язык нужен?»: языки меню и те, у кого меню ещё нет.
+  // Названия — на самих языках, от Chrome.
+  var WANTED = ['af', 'ar', 'az', 'be', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'es', 'et', 'fa', 'fi', 'fil', 'fr', 'gu', 'he', 'hi',
+    'hr', 'hu', 'hy', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'mr', 'ms', 'nl', 'no', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sr',
+    'sv', 'sw', 'ta', 'te', 'th', 'tr', 'uk', 'ur', 'uz', 'vi', 'zh-CN', 'zh-TW'];
+  var RTL = ['ar', 'fa', 'ur', 'iw'];
+
+  function param(name) {
+    var m = String(location.search || '').match(new RegExp('[?&]' + name + '=([^&]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  // Язык: из меню расширения, иначе — язык браузера, иначе английский.
+  var version = param('v').replace(/[^0-9.]/g, '').slice(0, 12);
+  var lang = param('lang').toLowerCase();
+  if (lang === 'ua') lang = 'uk';
+  if (lang === 'he') lang = 'iw';
+  if (!lang) {
+    var nav = String(navigator.language || 'en').toLowerCase();
+    lang = /^zh-(tw|hk|mo|hant)/.test(nav) ? 'zh-tw' : nav.split('-')[0];
+    if (lang === 'he') lang = 'iw';
+  }
+  var t = TEXT[lang] || TEXT.en;
+  var pageLang = TEXT[lang] ? lang : 'en';
+  document.documentElement.lang = pageLang === 'zh-tw' ? 'zh-TW' : pageLang === 'iw' ? 'he' : pageLang;
+  if (RTL.indexOf(pageLang) !== -1) document.documentElement.dir = 'rtl';
+
+  document.getElementById('title').textContent = t.title;
+  document.getElementById('ask').textContent = t.ask;
+  document.getElementById('note').textContent = t.note;
+  document.getElementById('again').textContent = t.again;
+
+  function icon(paths, cls) {
+    return '<svg' + (cls ? ' class="' + cls + '"' : '') + ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + paths + '</svg>';
+  }
+
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  // Первую строку нажимают чаще просто потому, что она первая: первые три
+  // причины — в случайном порядке, «Уже не нужно» всегда последней.
+  // Записываем причину, а не место.
+  var order = [0, 1, 2];
+  for (var i = order.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+  }
+  order.push(3);
+
+  var list = document.getElementById('reasons');
+  var rows = [];
+  var answered = false;
+  order.forEach(function(index) {
+    var code = CODES[index];
+    var row = el('button', 'row');
+    row.type = 'button';
+    row.setAttribute('data-reason', code);
+    row.innerHTML = icon(ICONS[code]) + '<span></span>' + icon(ICONS.chev, 'chev');
+    row.querySelector('span').textContent = t.reasons[index];
+    row.addEventListener('click', function() { choose(code, row); });
+    list.appendChild(row);
+    rows.push(row);
+  });
+
+  function choose(code, row) {
+    if (answered) return;
+    answered = true;
+    send({ reason: code });
+    document.getElementById('title').textContent = t.thanks;
+    document.getElementById('ask').hidden = true;
+    rows.forEach(function(r) {
+      if (r === row) {
+        r.className = 'row picked';
+        r.innerHTML = icon(ICONS.picked) + '<span></span>';
+        r.querySelector('span').textContent = t.reasons[CODES.indexOf(code)];
+      } else {
+        r.className = 'row dim';
+        r.disabled = true;
+      }
+    });
+    var answer = code === 'no_language' ? languageAnswer() : textAnswer(code);
+    list.insertBefore(answer, row.nextSibling);
+    // В ответе уже есть «Установить снова» — нижняя ссылка его только повторяет.
+    if (code !== 'no_language') document.getElementById('again').hidden = true;
+  }
+
+  // Ответ на «Перевод не появлялся», «Перевод с ошибками», «Уже не нужно»:
+  // что можно исправить — и «Установить снова».
+  function textAnswer(code) {
+    var box = el('div', 'ans');
+    var body = t[code];
+    if (body.lead) {
+      box.appendChild(el('p', '', body.lead));
+      var ol = el('ol');
+      body.list.forEach(function(line) { ol.appendChild(el('li', '', line)); });
+      box.appendChild(ol);
+    } else {
+      body.forEach(function(line) { box.appendChild(el('p', '', line)); });
+    }
+    var act = el('div', 'act');
+    var again = el('a', 'cta', t.reinstall);
+    again.href = STORE;
+    act.appendChild(again);
+    box.appendChild(act);
+    return box;
+  }
+
+  // «Нет моего языка»: какой нужен — выбором из списка, без свободного
+  // текста (это были бы личные данные). Уходит только код языка.
+  function languageAnswer() {
+    var box = el('div', 'ans');
+    var ask = box.appendChild(el('p', '', t.langAsk));
+    var act = el('div', 'act');
+    var select = el('select');
+    select.setAttribute('aria-label', t.langAsk);
+    var first = el('option', '', t.langPick);
+    first.value = '';
+    select.appendChild(first);
+    languageOptions().forEach(function(item) {
+      var option = el('option', '', item.name);
+      option.value = item.code;
+      select.appendChild(option);
+    });
+    var other = el('option', '', t.langOther);
+    other.value = 'other';
+    select.appendChild(other);
+    var sendBtn = el('button', 'cta', t.langSend);
+    sendBtn.type = 'button';
+    sendBtn.addEventListener('click', function() {
+      if (!select.value) return;
+      send({ reason: 'wanted_language', wanted: select.value });
+      // После ответа остаётся только «Спасибо»: вопрос и подсказка уже не нужны.
+      ask.hidden = act.hidden = hint.hidden = true;
+      box.appendChild(el('p', 'done', t.langSent));
+    });
+    act.appendChild(select);
+    act.appendChild(sendBtn);
+    box.appendChild(act);
+    var hint = box.appendChild(el('p', 'hint', t.langHint));
+    return box;
+  }
+
+  function languageOptions() {
+    var names = null;
+    return WANTED.map(function(code) {
+      var name = code;
+      try {
+        names = new Intl.DisplayNames([code], { type: 'language' });
+        name = names.of(code) || code;
+      } catch (e) {}
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+      return { code: code, name: name };
+    }).sort(function(a, b) { return a.name.localeCompare(b.name); });
+  }
+
+  function send(fields) {
+    if (!FORM.action || !FORM.reason) return;
+    try {
+      var data = new FormData();
+      data.append(FORM.reason, fields.reason);
+      if (FORM.version) data.append(FORM.version, version);
+      if (FORM.lang) data.append(FORM.lang, lang);
+      if (FORM.wanted && fields.wanted) data.append(FORM.wanted, fields.wanted);
+      fetch(FORM.action, { method: 'POST', mode: 'no-cors', body: data }).catch(function() {});
+    } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>
